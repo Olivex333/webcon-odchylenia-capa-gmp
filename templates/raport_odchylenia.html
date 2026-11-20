@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Raport z odchylenia {{Sygnatura}}</title>
+<!--
+  Wydruk raportu z odchylenia GMP (HTML + CSS, format A4).
+  Znaczniki {{...}} zastępuje się wartościami pól formularza przy generowaniu wydruku.
+-->
+<style>
+  @page { size: A4; margin: 16mm 15mm; }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", Arial, sans-serif; color: #1f2b2e; font-size: 10pt; line-height: 1.45; margin: 0; }
+  header { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1.5pt solid #1f2b2e; padding-bottom: 3mm; }
+  h1 { font-size: 15pt; margin: 0; }
+  .meta { text-align: right; font-size: 9pt; color: #555; }
+  .klasa { display: inline-block; padding: 1mm 3mm; border: 1pt solid currentColor; font-weight: 600; }
+  .klasa-Krytyczne { color: #a1251b; } .klasa-Poważne { color: #8a5a00; } .klasa-Mniejsze { color: #1f6b33; }
+  section { margin-top: 6mm; break-inside: avoid; }
+  h2 { font-size: 11pt; margin: 0 0 2mm; padding-bottom: 1mm; border-bottom: 0.5pt solid #c8cfd1; }
+  dl { display: grid; grid-template-columns: 45mm 1fr 40mm 1fr; gap: 1.5mm 4mm; margin: 0; }
+  dt { color: #555; } dd { margin: 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 9.5pt; }
+  th, td { border: 0.5pt solid #c8cfd1; padding: 1.5mm 2mm; text-align: left; vertical-align: top; }
+  th { background: #f1f3f4; }
+  .podpisy { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8mm; margin-top: 12mm; font-size: 9pt; }
+  .podpis { border-top: 0.6pt solid #1f2b2e; padding-top: 1.5mm; }
+  footer { margin-top: 8mm; font-size: 8pt; color: #666; }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Raport z odchylenia</h1>
+    <span class="klasa klasa-{{Klasyfikacja}}">{{Klasyfikacja}}</span>
+  </div>
+  <div class="meta">
+    <strong>{{Sygnatura}}</strong><br>
+    Status: {{Krok}}<br>
+    Wydruk: {{DataWydruku}}, {{Drukujacy}}
+  </div>
+</header>
+
+<section>
+  <h2>Zdarzenie</h2>
+  <dl>
+    <dt>Data zdarzenia</dt><dd>{{DataZdarzenia}}</dd>
+    <dt>Data wykrycia</dt><dd>{{DataWykrycia}}</dd>
+    <dt>Obszar / linia</dt><dd>{{Linia}}</dd>
+    <dt>Kategoria</dt><dd>{{Kategoria}}</dd>
+    <dt>Produkt</dt><dd>{{Produkt}}</dd>
+    <dt>Numer serii</dt><dd>{{NumerSerii}}</dd>
+    <dt>Status serii</dt><dd>{{StatusSerii}}</dd>
+    <dt>Zgłaszający</dt><dd>{{Zglaszajacy}}</dd>
+  </dl>
+  <p><strong>Opis:</strong> {{Opis}}</p>
+  <p><strong>Działania natychmiastowe:</strong> {{DzialaniaNatychmiastowe}}</p>
+</section>
+
+<section>
+  <h2>Dochodzenie</h2>
+  <p><strong>Prowadzący:</strong> {{ProwadzacyDochodzenie}} · <strong>Termin:</strong> {{TerminDochodzenia}}</p>
+  <table>
+    <thead><tr><th style="width:8mm">#</th><th>Dlaczego?</th><th>Odpowiedź</th></tr></thead>
+    <tbody>{{Wiersze5Why}}</tbody>
+  </table>
+  <p><strong>Kategoria przyczyny:</strong> {{KategoriaPrzyczyny}}</p>
+  <p><strong>Ocena wpływu na serie i inne produkty:</strong> {{OcenaWplywu}}</p>
+</section>
+
+<section>
+  <h2>Działania CAPA</h2>
+  <table>
+    <thead><tr><th>Typ</th><th>Działanie</th><th>Właściciel</th><th>Termin</th><th>Status</th></tr></thead>
+    <tbody>{{WierszeCAPA}}</tbody>
+  </table>
+  <p><strong>Kryterium skuteczności:</strong> {{KryteriumSkutecznosci}}</p>
+  <p><strong>Ocena skuteczności:</strong> {{OcenaSkutecznosci}}</p>
+</section>
+
+<section class="podpisy">
+  <div class="podpis">Prowadzący dochodzenie<br>{{PodpisProwadzacy}}</div>
+  <div class="podpis">Kierownik QA – zatwierdzenie CAPA<br>{{PodpisZatwierdzenie}}</div>
+  <div class="podpis">Kierownik QA – zamknięcie<br>{{PodpisZamkniecie}}</div>
+</section>
+
+<footer>Dokument wygenerowany z systemu. Podpisy elektroniczne z datą i godziną są zapisane w śladzie audytowym.</footer>
+</body>
+</html>
